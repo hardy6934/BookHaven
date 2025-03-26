@@ -1,0 +1,56 @@
+@use "../../../../../variables/variables.scss";
+
+.authentication{
+  width: 50%;
+  height: 100%; 
+  margin: 0px auto;
+}
+
+.authentication-form{
+  width: 100%; 
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  justify-content: center;
+}
+.authentication-form > div{ 
+  margin-bottom: 15px;
+}
+
+
+.form-control{
+  width: 100%;
+} 
+  .form-control input{
+    @include variables.form-input; 
+    width: 100%;
+  }
+.input-container {
+  position: relative;
+}
+.input-icon {
+  position: absolute;
+  left: 10px; 
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px; 
+  pointer-events: none; 
+}
+
+
+.authentication-forget-password{
+  width: 100%;
+  text-align: right;
+}
+
+.authentication-form-submit{
+  @include variables.btn-primary; 
+  width: 100%; 
+  margin-bottom: 25px;
+}
+
+.link{ 
+  color: var(--primary-color);
+}
