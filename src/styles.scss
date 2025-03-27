@@ -14,9 +14,14 @@
 
 html, body {
     font-family: "Manrope";
-    position: relative;
-    min-height: 100%;
+    position: relative; 
     background-color: #f5f4f4;
+
+    height: 100%; 
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    color: var(--text-primary);  
 }
 
 *,
@@ -26,15 +31,7 @@ html, body {
     margin: 0;
     padding: 0;
 } 
-
-body {
-    min-height: 100vh;
-    scroll-behavior: smooth;
-    text-rendering: optimizeSpeed;
-    line-height: 1.5;
-    color: var(--text-primary)
-}
-
+ 
 ul[class],
 ol[class] {
     list-style: none;

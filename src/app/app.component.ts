@@ -1,9 +1,9 @@
-import { Component } from '@angular/core'; 
-import { LoginComponent } from './features/auth/components/login/login.component';
+import { Component } from '@angular/core';  
+import { NavbarComponent } from './layout/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [LoginComponent],
+  imports: [NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

@@ -1,0 +1,41 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;  
+    padding: 0px 10px;
+    height: 100%;
+}
+
+.navbar-routes {
+    display: flex; 
+}
+.navbar-routes ul {
+    display: flex;
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+} 
+  .navbar-routes ul li {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    margin-right: 20px; 
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+    height: 100%;
+  } 
+  .navbar-routes ul li:hover {
+    color: var(--primary-color);  
+    border-bottom: 3px solid var(--primary-color);
+    border-radius: 2px;
+  } 
+   
+  .navbar-auth app-primary-button {
+    margin-left: 10px;  
+  }
+  .navbar-routes-pic{  
+    width: 60px;
+    background-color: black; 
+  }
