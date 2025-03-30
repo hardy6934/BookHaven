@@ -8,8 +8,7 @@
     
           <div class="form-control">
             <div class="input-container">
-              <!-- <img src="" alt="icon" class="input-icon"> -->
-               <div class="input-icon" style="background-color: black;"></div>
+               <img src="/mailicon.png" alt="icon" class="input-icon"> 
               <input formControlName="email" type="email" autocomplete="username" placeholder="Email"/>
             </div> 
             <span class="validation-error" *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
@@ -19,8 +18,7 @@
   
           <div class="form-control">
             <div class="input-container">
-              <!-- <img src="" alt="icon" class="input-icon"> -->
-               <div class="input-icon" style="background-color: black;"></div>
+               <img src="/lockicon.png" alt="icon" class="input-icon"> 
                <input  formControlName="password" type="password" autocomplete="new-password" placeholder="Пароль"/>
             </div> 
             <span class="validation-error" *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
@@ -30,8 +28,7 @@
   
           <div class="form-control">
             <div class="input-container">
-              <!-- <img src="" alt="icon" class="input-icon"> -->
-               <div class="input-icon" style="background-color: black;"></div>
+               <img src="/lockicon.png" alt="icon" class="input-icon">
                <input  formControlName="passwordConfirmation" type="password" autocomplete="new-password" placeholder="Повторите пароль"/>
             </div> 
             <span class="validation-error" *ngIf="registrationForm.errors?.['passwordsMismatch'] && registrationForm.get('passwordConfirmation')?.touched">

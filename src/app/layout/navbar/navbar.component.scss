@@ -9,6 +9,7 @@
 
 .navbar-routes {
     display: flex; 
+    align-items: center;
 }
 .navbar-routes ul {
     display: flex;
@@ -20,8 +21,7 @@
     display: flex;
     align-items: center; 
     justify-content: center; 
-    margin-right: 20px; 
-    font-weight: bold;
+    margin-right: 20px;  
     cursor: pointer;
     color: #333;
     height: 100%;
@@ -31,11 +31,35 @@
     border-bottom: 3px solid var(--primary-color);
     border-radius: 2px;
   } 
-   
+
+  .navbar-auth {    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  } 
   .navbar-auth app-primary-button {
-    margin-left: 10px;  
+    margin-left: 10px;   
   }
-  .navbar-routes-pic{  
-    width: 60px;
-    background-color: black; 
+
+  .navbar-routes-pic{    
+    height: 2rem; 
+  }
+    .navbar-routes-pic.user{    
+      padding: 0px 5px;
+      height: 1.6rem; 
+    }
+    .userName{
+      margin-right: 10px;
+    }
+    .navbar-routes-pic.logout{     
+      height: 1.6rem; 
+    }
+
+  .navbar-routes-title{
+    font-weight: bold;
+    margin: 0px 15px 0px 5px; 
+    font-size: 1.3rem;
+  }
+  .navbar-routes-logout{
+    color: #CB5454; 
   }

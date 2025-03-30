@@ -1,18 +1,29 @@
-
 <div class="navbar">
 
     <div class="navbar-routes">
-        <div class="navbar-routes-pic"></div>
+        <img class="navbar-routes-pic" src="/BookHaven.png">
+        <span class="navbar-routes-title">Book Haven</span>
         <ul>
-            <li routerLink="/">HomePage</li>
+            <li routerLink="/">Home psage</li>
             <li>Categories</li>
         </ul>
         <app-primary-button buttonText="Add New"></app-primary-button>
     </div>
-
-    <div class="navbar-auth">
-        <app-primary-button buttonText="Sign In" routerLink="/login"></app-primary-button>
-        <app-primary-button buttonText="Sign Up" routerLink="/registration"></app-primary-button>
-    </div> 
+ 
+  
+            <div *ngIf="!isLoggedIn" class="navbar-auth">
+                <app-primary-button buttonText="Sign In" routerLink="/login"></app-primary-button>
+                <app-primary-button buttonText="Sign Up" routerLink="/registration"></app-primary-button>
+            </div>  
+ 
+            <div *ngIf="isLoggedIn" class="navbar-auth">
+                <span>Hello, </span>
+                <img class="navbar-routes-pic user" src="/user.png"> 
+                <span class="userName">UserName</span>
+                
+                <button (click)="logout()"><img class="navbar-routes-pic logout" src="/exit.png"></button>
+                <button (click)="logout()"><span class="navbar-routes-logout">Log out</span></button> 
+            </div>  
+    
 
 </div>
