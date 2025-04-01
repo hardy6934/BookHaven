@@ -13,7 +13,8 @@ export class AuthService {
 
   router = inject(Router);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { 
+  }
 
   private hasToken(): boolean {
     return !!localStorage.getItem('jwtToken');  // Проверяем, есть ли токен
