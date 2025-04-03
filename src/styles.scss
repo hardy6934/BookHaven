@@ -1,22 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-:root{ 
-    // Основные цвета
-    --primary-color: #6464ED;  
-    // Фоновые цвета 
-
-    // Текстовые цвета
-    --text-primary: #212529; 
-    --text-denger: #ff0000;
-}
- 
-
 
 html, body {
-    font-family: "Manrope";
-    position: relative; 
-    background-color: #f5f4f4;
+    font-family: "Manrope";  
 
     height: 100vh; 
     scroll-behavior: smooth;

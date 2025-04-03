@@ -1,0 +1,30 @@
+@use "variables" as var;
+
+@mixin btn-primary{
+    background-color: var.$primary-color;
+    border: none;
+    color: white; 
+    padding: 5px 30px;
+    border-radius: 5px; 
+} 
+
+@mixin form-input{ 
+    color: var.$text-primary; 
+    padding: 5px 30px; 
+    border: 1px solid black; 
+    border-radius: 5px;   
+}
+ 
+@mixin center-X{
+    display: flex;
+    justify-content: center;
+}
+@mixin center-Y{
+    display: flex;
+    align-items: center;
+} 
+@mixin center-XY{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

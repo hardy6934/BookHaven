@@ -1,15 +1,17 @@
+ @use "variables" as var;
+ @use "mixins" as mix;
+
+
 .navbar{
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
-    align-items: center;  
-    padding: 0px 10px;
-    height: 100%;
+    flex-direction: row; 
+    padding: 0px 10px; 
+    width: var.$width-container;
 }
 
 .navbar-routes {
-    display: flex; 
-    align-items: center;
+  @include mix.center-Y;
 }
 .navbar-routes ul {
     display: flex;
@@ -18,30 +20,25 @@
     margin: 0;
 } 
   .navbar-routes ul li {
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
+    @include mix.center-XY;
     margin-right: 20px;  
     cursor: pointer;
     color: #333;
     height: 100%;
   } 
   .navbar-routes ul li:hover {
-    color: var(--primary-color);  
-    border-bottom: 3px solid var(--primary-color);
+    color: var.$primary-color;  
+    border-bottom: 3px solid var.$primary-color;
     border-radius: 2px;
   } 
 
   .navbar-auth {    
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    @include mix.center-Y;
+    flex-direction: row; 
 
     .profile{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-
+      @include mix.center-Y;
+      flex-direction: row;  
       cursor: pointer;
     }
 
