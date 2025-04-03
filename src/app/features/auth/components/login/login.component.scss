@@ -1,4 +1,9 @@
-@use "../../../../../variables/variables.scss";
+@use "mixins" as mix;
+@use "variables" as var;
+
+:host{
+  width: 100%;
+}
 
 .authentication{
   width: 100%;
@@ -23,7 +28,7 @@
   margin-bottom: 15px;
 } 
   .form-control input{
-    @include variables.form-input; 
+    @include mix.form-input; 
     width: 100%;
   }
 .input-container {
@@ -46,17 +51,17 @@
 }
 
 .authentication-form-submit{
-  @include variables.btn-primary; 
+  @include mix.btn-primary; 
   width: 100%; 
   margin-bottom: 25px;
 }
 
 .link{ 
-  color: var(--primary-color); 
+  color: var.$primary-color; 
   margin-bottom: 15px;
 }
 
 .validation-error{  
-  color: var(--text-denger);
+  color: var.$text-denger;
   float: left;
 }
