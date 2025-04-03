@@ -12,7 +12,7 @@
 .header {
     width: 100%;
     @include mix.center-X;
-    padding: 5px;
+    padding: 5px 0px;
     background-color: white; 
     border: 1px solid rgb(198, 195, 195); 
     border-top: 0;

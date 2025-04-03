@@ -1,12 +1,9 @@
-<div><p>Books</p></div>
-<div>
-    <div *ngIf ="!isLoading">
+ 
+    <div *ngIf="!isLoading" class="books">
         <div *ngFor="let book of books$ | async">
-            {{ book.title }} 
-            {{ book.isFavorite ? '❤️' : '🤍' }}
+            <app-book [book]="book"></app-book>
         </div>
-    </div> 
-    <div *ngIf ="isLoading">
+    </div>
+    <div *ngIf="isLoading">
         loading
     </div> 
-</div>

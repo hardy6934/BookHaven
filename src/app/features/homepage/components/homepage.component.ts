@@ -2,10 +2,11 @@ import { Component, inject, OnInit } from '@angular/core';
 import { BookService } from '../services/book.service';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'; 
+import { BookComponent } from './book/book.component';
 
 @Component({
   selector: 'app-homepage',
-  imports: [AsyncPipe, NgFor, NgIf],
+  imports: [AsyncPipe, NgFor, NgIf, BookComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })

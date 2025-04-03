@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BookService{
   
+  private apiUrl: string = "http://localhost:3000/books";
+
   private booksSubject: BehaviorSubject<Book[]>  = new BehaviorSubject<Book[]>([]);
   readonly books$: Observable<Book[]> = this.booksSubject.asObservable();
 
@@ -21,13 +23,16 @@ export class BookService{
 
   loadBooks(): Observable<any> {
     this.isLoadingSubject.next(true);
-    return this.http.get<Book[]>('http://localhost:3000/books').pipe(
-      tap(books  =>  {
-        console.log(books); 
+    return this.http.get<Book[]>(this.apiUrl).pipe(
+      tap(books  =>  { 
         this.booksSubject.next(books);
         this.isLoadingSubject.next(false);
       })
     );
+  }
+
+  updateBook(book: Book): Observable<any> { 
+    return this.http.put<Book>(`${this.apiUrl}/${book.id}`, book);
   }
 
 }
