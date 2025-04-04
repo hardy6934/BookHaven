@@ -4,6 +4,6 @@ export interface Book {
     author: string;
     categoryId: string;
     description: string;
-    isFavorite?: boolean; 
+    isFavorite: boolean; 
   }
   

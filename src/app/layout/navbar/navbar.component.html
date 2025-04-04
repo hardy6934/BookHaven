@@ -2,9 +2,9 @@
 
     <div class="navbar-routes">
         <img class="navbar-routes-pic" src="/BookHaven.png">
-        <span class="navbar-routes-title">Book Haven</span>
-        <ul>
-            <li (click)="navigateTo('/')">Home page</li>
+        <span class="navbar-routes-title" routerLink="/">Book Haven</span>
+        <ul> 
+            <li (click)="navigateTo('/home')">Home page</li> 
             <li>Categories</li>
         </ul>
         <app-primary-button buttonText="Add New"></app-primary-button>

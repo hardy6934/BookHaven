@@ -19,7 +19,8 @@ export class BookService{
 
   private http = inject(HttpClient)
   
-  constructor() { } 
+  constructor() {  
+  } 
 
   loadBooks(): Observable<any> {
     this.isLoadingSubject.next(true);
@@ -27,6 +28,8 @@ export class BookService{
       tap(books  =>  { 
         this.booksSubject.next(books);
         this.isLoadingSubject.next(false);
+        
+        console.log(books)
       })
     );
   }

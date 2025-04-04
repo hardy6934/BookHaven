@@ -5,13 +5,16 @@ import { authGuard } from './core/guards/auth.guard';
 import { ProfileComponent } from './features/profile/comonents/profile.component';
 import { ProfileResolver } from './core/resolvers/profile/profile.resolver';
 import { HomepageComponent } from './features/homepage/components/homepage.component';
+import { IndexComponent } from './features/index/index.component';
 
 export const routes: Routes = [
-    { path: '', component: HomepageComponent, title: 'home', pathMatch: 'full'},  
+    { path: '', component: IndexComponent, title: 'index', pathMatch: 'full'},  
     { path: 'login', component: LoginComponent, title: 'Login' }, 
     { path: 'registration', component: RegistrationComponent, title: 'Registration' }, 
     { path: 'profile', component: ProfileComponent, title: 'Profile', 
       resolve: {profileData: ProfileResolver}, canActivate: [authGuard] 
+    }, 
+    { path: 'home', component: HomepageComponent, title: 'Home', canActivate: [authGuard] 
     }, 
     { path: '**', redirectTo: '' } 
   ];

@@ -48,6 +48,7 @@
 
   .navbar-routes-pic{    
     height: 2rem; 
+    cursor: pointer;
   }
     .navbar-routes-pic.user{    
       padding: 0px 5px;
@@ -63,7 +64,8 @@
   .navbar-routes-title{
     font-weight: bold;
     margin: 0px 15px 0px 5px; 
-    font-size: 1.3rem;
+    font-size: 1.3rem; 
+    cursor: pointer;
   }
   .navbar-routes-logout{
     color: #CB5454; 
