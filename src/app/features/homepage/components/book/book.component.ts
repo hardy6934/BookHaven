@@ -12,16 +12,27 @@ import { BookService } from '../../services/book.service';
 export class BookComponent {
 
   @Input() book!: Book
+  updateBook: Book = {
+    id: "",
+    title: "",
+    author: "",
+    categoryId: "",
+    description: "",
+    isFavorite: false
+  }
 
   bookService = inject(BookService);
 
   
   toggleFavorite() { 
-    this.book.isFavorite = !this.book.isFavorite;
-    this.bookService.updateBook(this.book)
+
+    this.updateBook = {...this.book};
+    this.updateBook.isFavorite = !this.book.isFavorite;
+
+    this.bookService.updateBook(this.updateBook)
       .subscribe({
         next: () => {
-          this.bookService.loadBooks().subscribe() 
+          this.bookService.loadBooks().subscribe()  
         },
         error: (err) => {
           console.error('Ошибка при обновлении:', err);
