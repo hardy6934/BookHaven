@@ -32,11 +32,11 @@ export class NavbarComponent {
      this.router.navigate(['/login']);
   }
   
-  navigateTo(route: string): void{ 
-    this.router.navigateByUrl(route).then(() => {
-      this.bookService.loadBooks().subscribe()
-    });
-  }
+  // navigateTo(route: string): void{ 
+  //   this.router.navigateByUrl(route).then(() => {
+  //     this.bookService.loadBooks().subscribe()
+  //   });
+  // }
 
   
 } 

@@ -1,0 +1,24 @@
+<form [formGroup]="filterForm" class="filter-container"> 
+    <div class="filter-group">
+        <label class="checkbox-label">
+          <input type="checkbox" formControlName="isFavorite" class="checkbox">
+          <span>Только избранные</span>
+        </label>
+      </div>
+
+    <div class="filter-group pagination">
+        <label>Страница</label>
+        <input type="number" formControlName="_page" min="1" class="page-input">
+        
+        <label>На странице</label>
+        <select formControlName="_per_page" class="per-page-select">
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+
+    <button type="button" (click)="resetFilters()" class="btn reset-btn">
+        Сбросить
+    </button>
+</form>

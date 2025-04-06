@@ -8,7 +8,7 @@ import { HomepageComponent } from './features/homepage/components/homepage.compo
 import { IndexComponent } from './features/index/index.component';
 
 export const routes: Routes = [
-    { path: '', component: IndexComponent, title: 'index', pathMatch: 'full'},  
+    { path: '', component: IndexComponent, title: 'index'},  
     { path: 'login', component: LoginComponent, title: 'Login' }, 
     { path: 'registration', component: RegistrationComponent, title: 'Registration' }, 
     { path: 'profile', component: ProfileComponent, title: 'Profile', 
