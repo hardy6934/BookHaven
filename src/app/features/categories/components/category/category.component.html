@@ -1,0 +1,15 @@
+<div class="category-card">
+    <div class="category-content">
+ 
+        <div class="category-id">Id: {{ category.id }}</div>
+
+        <div class="category-title">Title: {{ category.title }}</div>
+ 
+    </div>
+
+    <div class="category-actions">
+        <app-primary-button buttonText="Edit"  (click)="openModal('edit')"></app-primary-button> 
+        <app-primary-button buttonText="Remove"  (click)="openModal('delete')"></app-primary-button> 
+    </div>
+
+</div>

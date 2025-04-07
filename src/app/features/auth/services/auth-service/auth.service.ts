@@ -3,8 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Auth } from '../../../../shared/models/auth.model';
-import { Profile } from '../../../../shared/models/profile.model';
-import { Register } from '../../../../shared/models/register.model';
+import { Profile } from '../../../../shared/models/profile.model'; 
 import { Md5 } from 'md5-typescript';
 
 @Injectable({
@@ -30,8 +29,7 @@ export class AuthService {
   login(authModel: Auth): Observable<Profile> {  
     return this.http.get<Profile>(`${this.apiURL}`)
       .pipe(
-        map(response => {
-          console.log(response)
+        map(response => { 
           if (response.email !== authModel.email) {
             throw new Error('Пользователь не найден');
           }
