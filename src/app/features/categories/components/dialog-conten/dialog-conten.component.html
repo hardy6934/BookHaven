@@ -1,11 +1,24 @@
-<div *ngIf="mode !== 'delete'">
+<div *ngIf="mode !== 'delete';else delete">
     <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="create-category-modal-form">
         <mat-dialog-content>
 
-            <mat-form-field>
-                <mat-label>ID</mat-label>
-                <input matInput formControlName="id" type="text" placeholder="Введите ваш ID">
-            </mat-form-field>
+            <mat-label>{{title}}</mat-label>
+
+            <div *ngIf="mode === 'add';else edit">
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="id" value="categoryModel.id" type="text"
+                        placeholder="Введите ваш ID">
+                </mat-form-field>
+            </div>
+            <ng-template #edit>
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="id" value="categoryModel.id" type="text"
+                        placeholder="Введите ваш ID" readonly>
+                </mat-form-field>
+            </ng-template>
+
 
             <mat-form-field>
                 <mat-label>Название</mat-label>
@@ -18,21 +31,21 @@
 
 
         </mat-dialog-content>
-        <mat-dialog-actions align="end">
+        <mat-dialog-actions>
             <button mat-button mat-dialog-close>Отмена</button>
             <button mat-button mat-dialog-close type="submit">Сохранить</button>
         </mat-dialog-actions>
     </form>
 </div>
 
-<div *ngIf="mode === 'delete'" class="delete-form">
+<ng-template #delete class="delete-form">
     <mat-dialog-content>
 
-        <mat-label>Вы действительно хотите удалить элемент?</mat-label>
+        <mat-label>{{title}}</mat-label>
 
     </mat-dialog-content>
-    <mat-dialog-actions align="end">
+    <mat-dialog-actions>
         <button mat-button mat-dialog-close>Отмена</button>
         <button mat-button mat-dialog-close (click)="onDelete()">Удалить</button>
     </mat-dialog-actions>
-</div>
+</ng-template>

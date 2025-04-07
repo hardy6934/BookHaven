@@ -16,66 +16,50 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class DialogContenComponent {
 
-
   categoriesService = inject(CategoriesService);
   fb = inject(FormBuilder);
   dialogRef = inject(MatDialogRef);
-
-  categoryForm: FormGroup;
+ 
   mode: string;
   title: string;
+  categoryForm: FormGroup;  
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { mode: string, category?: Category }) {
+ 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { mode: string, category: Category }) {
     this.mode = data.mode;
-    this.title = this.getTitle(data.mode);
+    this.title = this.getTitle(data.mode);  
+
     this.categoryForm = this.fb.group({
-      id: [data.category?.id || 0, Validators.required],
-      title: [data.category?.title || '', Validators.required]
-    });
+      id: [data.category.id || '0', Validators.required],
+      title: [data.category.title || '', Validators.required]
+    }); 
   }
   
-  // createUpdateCategoryForm = this.fb.group(
-  //     {
-  //       id: [''],
-  //       title: ['', [Validators.required]],
-  //     }
-  //   )
+  createUpdateCategoryFormToCategoryModelMapper(categoryForm: FormGroup): Category {  
+    
+    const categoryModel: Category = {
+      id: categoryForm.value.id,
+      title: categoryForm.value.title
+    } 
 
-  // onSubmit() {
-  //     if(this.createUpdateCategoryForm.valid) {
-  //     const categoryModel = this.createUpdateCategoryFormToCategoryModelMapper(this.createUpdateCategoryForm);
-  //     this.categoriesService.addNewCategory(categoryModel).subscribe({
-  //       error: (err) => alert(`Ошибка: ${err.message}`)
-  //     });
-  //   }
-  // }
-  
-
-  // createUpdateCategoryFormToCategoryModelMapper(createUpdateCategoryForm: FormGroup): Category {
-
-  //   const categoryModel: Category = {
-  //     id: createUpdateCategoryForm.value.id,
-  //     title: createUpdateCategoryForm.value.title
-  //   }
-
-  //   return categoryModel;
-  // }
+    return categoryModel;
+  }
 
   onSubmit(): void {
-    if(this.categoryForm.valid && this.mode !== 'delete') {
-      this.dialogRef.close(this.categoryForm.value);  
+    if (this.categoryForm.valid && this.mode !== 'delete') {
+      this.dialogRef.close(this.createUpdateCategoryFormToCategoryModelMapper(this.categoryForm));
     }
   }
 
   onDelete() {
-    this.dialogRef.close(true); 
+    this.dialogRef.close(true);
   }
 
   getTitle(mode: string): string {
     switch (mode) {
       case 'edit': return 'Редактировать категорию';
       case 'add': return 'Добавить категорию';
-      case 'delete': return 'Удалить категорию';
+      case 'delete': return 'Вы действительно хотите удалить категорию?';
       default: return '';
     }
   }

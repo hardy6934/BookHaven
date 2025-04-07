@@ -8,10 +8,12 @@ import { CategoryComponent } from '../category/category.component';
 import { DialogContenComponent } from '../dialog-conten/dialog-conten.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-categories',
-  imports: [PrimaryButtonComponent, NgFor, NgIf, AsyncPipe, CategoryComponent, MatButtonModule, MatDialogModule],
+  imports: [PrimaryButtonComponent, NgFor, NgIf, AsyncPipe, CategoryComponent, 
+    MatButtonModule, MatDialogModule, PaginationComponent],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
@@ -21,15 +23,13 @@ export class CategoriesComponent {
   readonly dialog = inject(MatDialog);
   categories$ = this.categoriesService.categories$;
 
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   filters!: PaginationFilter;
 
   constructor() {
-    this.categoriesService.isLoading$.pipe(takeUntilDestroyed()).subscribe(res => this.isLoading = res);
-    this.categoriesService.filters$.pipe(takeUntilDestroyed()).subscribe(res => this.filters = res)
-
-    this.categoriesService.loadCategories(this.filters).subscribe();
+    this.categoriesService.filters$.pipe(takeUntilDestroyed()).subscribe(res => this.filters = res) 
+    this.categoriesService.loadCategories(this.filters).subscribe({next: () => this.isLoading = false});
   }
 
   openModal(mode: string, category?: any) {
@@ -41,7 +41,10 @@ export class CategoriesComponent {
       if (result) {
         if (mode === "add") {
           this.categoriesService.addNewCategory(result).subscribe({
-            next: () => {alert('Категория добавлена'); this.categoriesService.loadCategories()},
+            next: () => {
+              alert('Категория добавлена'); 
+              this.categoriesService.loadCategories().subscribe();
+            },
             error: (err) => alert(`Ошибка: ${err.message}`)
           });
         }
