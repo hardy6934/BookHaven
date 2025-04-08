@@ -2,7 +2,7 @@
 <div  *ngIf="!isLoading;else loading" >
     <app-primary-button buttonText="Add New" (click)="addNewBook()"></app-primary-button> 
 
-    <!-- <app-book-filter></app-book-filter> -->
+    <app-book-filter></app-book-filter>
     
     <div class="books">
         <div *ngFor="let book of books$ | async">

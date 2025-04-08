@@ -17,5 +17,6 @@ export const routes: Routes = [
     }, 
     { path: 'categories', component: CategoriesComponent, title: 'Categories', canActivate: [authGuard] }, 
     { path: 'home', component: HomepageComponent, title: 'Home', canActivate: [authGuard] }, 
+    { path: 'home/:categoryId', component: HomepageComponent, title: 'Home', canActivate: [authGuard] }, 
     { path: '**', redirectTo: '' } 
   ];

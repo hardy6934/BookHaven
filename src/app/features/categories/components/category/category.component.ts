@@ -6,10 +6,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DialogContenComponent } from '../dialog-conten/dialog-conten.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-category',
-  imports: [PrimaryButtonComponent, MatButtonModule, MatDialogModule],
+  imports: [PrimaryButtonComponent, MatButtonModule, MatDialogModule, RouterLink],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss'
 })

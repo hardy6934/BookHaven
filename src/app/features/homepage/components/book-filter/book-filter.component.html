@@ -1,24 +1,26 @@
-<form [formGroup]="filterForm" class="filter-container"> 
-    <div class="filter-group">
-        <label class="checkbox-label">
-          <input type="checkbox" formControlName="isFavorite" class="checkbox">
-          <span>Только избранные</span>
-        </label>
-      </div>
+<div class="pagination-container">
 
-    <div class="filter-group pagination">
-        <label>Страница</label>
-        <input type="number" formControlName="_page" min="1" class="page-input">
-        
-        <label>На странице</label>
-        <select formControlName="_per_page" class="per-page-select">
-          <option value="10">10</option>
-          <option value="15">15</option>
-          <option value="20">20</option>
-        </select>
-      </div>
-
-    <button type="button" (click)="resetFilters()" class="btn reset-btn">
-        Сбросить
+    <button mat-button (click)="previousPage()" [disabled]="paginationFilter._page === 1">
+        &lt;
     </button>
-</form>
+
+    <span class="page-info">Страница {{paginationFilter._page}} из {{paginationFilter.pages}}</span>
+
+    <button mat-button (click)="nextPage()" [disabled]="paginationFilter._page === paginationFilter.pages">
+        &gt;
+    </button>
+
+    <div [formGroup]="paginationForm" class="page-size-selector">
+        <label>Элементов на странице:</label>
+        <select formControlName="_per_page">
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+                {{ size }}
+            </option>
+        </select>
+
+        <label>Только избранное <input type="checkbox" formControlName="isFavorite"></label>
+        <label>Только НЕ избранное <input type="checkbox" formControlName="isNotFavorite"></label>
+
+    </div>
+
+</div>

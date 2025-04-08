@@ -19,7 +19,7 @@ export class PaginationComponent {
   paginationFilter!: PaginationFilter;
   paginationForm: FormGroup;
 
-  pageSizeOptions = [2, 4, 10, 15, 20, 50];
+  pageSizeOptions = [3, 5, 10, 15, 20, 50];
 
   constructor() {
 
@@ -32,8 +32,7 @@ export class PaginationComponent {
 
     this.paginationForm.get('_per_page')?.valueChanges
     .pipe(takeUntilDestroyed())
-    .subscribe(perPage => {
-      console.log("_per_page_per_page_per_page_per_page")
+    .subscribe(perPage => { 
       this.paginationFilter._page = 1;
       this.paginationFilter._per_page = perPage;
       this.categoriesService.loadCategories(this.paginationFilter).subscribe();

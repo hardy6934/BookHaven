@@ -3,9 +3,14 @@
 
         <div class="book-header">
             <h3 class="book-title">{{ book.id }} - {{ book.title }}</h3>
-            <span class="favorite-icon">
-                {{ book.isFavorite ? '❤️' : '🤍' }}
+            <span *ngIf="book.isFavorite;else notFavorite" class="favorite-icon" (click)="toggleFavorite()">
+                ❤️
             </span>
+            <ng-template #notFavorite class="favorite-icon" (click)="toggleFavorite()">
+                <span class="favorite-icon" (click)="toggleFavorite()">
+                    🤍
+                </span>
+            </ng-template>
         </div>
 
         <div class="book-author">Автор: {{ book.author }}</div>
@@ -19,10 +24,7 @@
 
     <div class="book-actions">
         <app-primary-button buttonText="Edit"></app-primary-button>
-        <app-primary-button 
-            [buttonText]="book.isFavorite ? 'Remove from Favorite' : 'Add to Favorite'"
-            (click)="toggleFavorite()">
-        </app-primary-button>
+        <app-primary-button buttonText="Remove"></app-primary-button>
     </div>
 
 </div>

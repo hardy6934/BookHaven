@@ -2,44 +2,40 @@ import { Component, inject, Input } from '@angular/core';
 import { Book } from '../../../../shared/models/book.model';
 import { PrimaryButtonComponent } from '../../../../shared/components/primary-button/primary-button.component';
 import { BookService } from '../../services/book.service';
-import { tap } from 'rxjs';
+import { NgIf } from '@angular/common';
+import { PaginationFilter } from '../../../../shared/models/pagination-filter.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-book',
-  imports: [PrimaryButtonComponent],
+  imports: [PrimaryButtonComponent, NgIf],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss'
 })
 export class BookComponent {
 
   @Input() book!: Book
-  updateBook: Book = {
-    id: "",
-    title: "",
-    author: "",
-    categoryId: "",
-    description: "",
-    isFavorite: false
-  }
 
   bookService = inject(BookService);
 
-  
-  toggleFavorite() { 
+  private paginationFilters!: PaginationFilter;
 
-    this.updateBook = {...this.book};
-    this.updateBook.isFavorite = !this.book.isFavorite;
+  constructor() {
+    this.bookService.paginationFilters$.pipe(takeUntilDestroyed())
+    .subscribe({next: (paginationFilters)=> this.paginationFilters = paginationFilters})
+  }
 
-    this.bookService.updateBook(this.updateBook)
+  toggleFavorite() {
+    this.bookService.updateBook({ ...this.book, isFavorite: !this.book.isFavorite })
       .subscribe({
         next: (res) => {
-          this.book = res;
-          // this.bookService.loadBooks().subscribe()  
+          //res - updatd boook  
+          this.bookService.loadBooks(this.paginationFilters).subscribe()
         },
         error: (err) => {
           console.error('Ошибка при обновлении:', err);
         }
       });
   }
- 
+
 }

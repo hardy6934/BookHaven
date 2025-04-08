@@ -1,9 +1,8 @@
 <div class="category-card">
     <div class="category-content">
  
-        <div class="category-id">Id: {{ category.id }}</div>
-
-        <div class="category-title">Title: {{ category.title }}</div>
+        <div class="category-id"  [routerLink]="['/home/',category.id]">Id: {{ category.id }}</div>
+        <div class="category-title" [routerLink]="['/home/',category.id]">Title: {{ category.title }}</div>
  
     </div>
 
