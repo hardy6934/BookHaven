@@ -8,57 +8,61 @@ import { GetListEl } from '../../../shared/models/get-list-el.model';
 @Injectable({
   providedIn: 'root'
 })
-export class BookService{
-  
+export class BookService {
+
   private apiUrl: string = "http://localhost:3000/books";
-  private filters: BookFilter ={
+  
+  private filters: BookFilter = {
     _page: 1,
-    _per_page: 15 
+    _per_page: 15
   }
 
-  private booksSubject: BehaviorSubject<Book[]>  = new BehaviorSubject<Book[]>([]);
+  private booksSubject: BehaviorSubject<Book[]> = new BehaviorSubject<Book[]>([]);
   readonly books$: Observable<Book[]> = this.booksSubject.asObservable();
 
   private filtersSubject: BehaviorSubject<any> = new BehaviorSubject<any>(this.filters);
-  readonly filters$: Observable<any> = this.filtersSubject.asObservable();
+  readonly filters$: Observable<any> = this.filtersSubject.asObservable(); 
 
-  private isLoadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  readonly isLoading$: Observable<boolean> = this.isLoadingSubject.asObservable();
-  
-  
-  
+ 
   private http = inject(HttpClient)
-  
-  constructor() {  
-  } 
 
-
-  loadBooks(filter?: BookFilter): Observable<GetListEl<Book>> {
-    this.isLoadingSubject.next(true);
-
-    if (filter) this.filtersSubject.next(filter); 
-    
-    return this.filtersSubject.pipe(
-      debounceTime(300), 
-      switchMap(filters => {  
-        const params = new HttpParams({ fromObject: filters });  
-        return this.http.get<GetListEl<Book>>(this.apiUrl, { params });
-      }),
-      tap(getBooks  =>  {  
-        this.booksSubject.next(getBooks.data);
-        this.isLoadingSubject.next(false);
-        
-        console.log(getBooks)
-      })
-    ); 
+  constructor() {
   }
 
-  updateBook(book: Book): Observable<any> { 
+
+  loadBooks(filter?: BookFilter): Observable<GetListEl<Book>> { 
+  
+    const params = new HttpParams()
+      .set("_page", this.filtersSubject.value._page)
+      .set("_per_page", this.filtersSubject.value._per_page);
+
+    return this.http.get<GetListEl<Book>>(this.apiUrl, { params }).pipe(
+      tap((res) => {
+        console.log("books", res);
+
+        this.booksSubject.next(res.data); 
+
+        this.filtersSubject.next({
+          ...this.filtersSubject.value,
+          first: res.first,
+          items: res.items,
+          last: res.last,
+          next: res.next,
+          pages: res.pages,
+          prev: res.prev
+        });
+         
+
+      }));
+
+  }
+
+  updateBook(book: Book): Observable<any> {
     return this.http.put<Book>(`${this.apiUrl}/${book.id}`, book);
   }
 
 
-   
+
 
   createBook: Book = {
     id: "123",
@@ -67,8 +71,8 @@ export class BookService{
     categoryId: "123",
     description: "123",
     isFavorite: false
-  } 
-  addNewBook(): Observable<any> {   
+  }
+  addNewBook(): Observable<any> {
     console.log("ikownenngwr");
     return this.http.post<Book>(`${this.apiUrl}`, this.createBook).pipe(tap(res => console.log(res)));
   }

@@ -1,11 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BookService } from '../services/book.service';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'; 
 import { BookComponent } from './book/book.component';
 import { PrimaryButtonComponent } from '../../../shared/components/primary-button/primary-button.component';
-import { BookFilter } from '../../../shared/models/book-filter.model';
-import { BookFilterComponent } from './book-filter/book-filter.component';
+import { BookFilter } from '../../../shared/models/book-filter.model'; 
 
 
 @Component({
@@ -19,17 +18,14 @@ export class HomepageComponent {
   bookService = inject(BookService);
   books$ = this.bookService.books$;
 
-  isLoading: boolean = false;
+  isLoading: boolean = true;
 
   filters: BookFilter = { }
   
-  constructor(){
-    this.bookService.isLoading$.pipe(takeUntilDestroyed()).subscribe(res=> this.isLoading = res); 
+  constructor(){ 
     this.bookService.filters$.pipe(takeUntilDestroyed()).subscribe(res=> this.filters = res) 
 
-    this.bookService.loadBooks(this.filters).pipe(
-      takeUntilDestroyed()
-    ).subscribe();
+    this.bookService.loadBooks().subscribe({next: () => this.isLoading = false});
  
   }
 
