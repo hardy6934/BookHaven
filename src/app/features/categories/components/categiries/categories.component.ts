@@ -9,6 +9,7 @@ import { DialogContenComponent } from '../dialog-conten/dialog-conten.component'
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { Category } from '../../../../shared/models/category.model';
 
 @Component({
   selector: 'app-categories',
@@ -32,8 +33,8 @@ export class CategoriesComponent {
     this.categoriesService.loadCategories(this.filters).subscribe({next: () => this.isLoading = false});
   }
 
-  openModal(mode: string, category?: any) {
-    const dialogRef = this.dialog.open(DialogContenComponent, { 
+  openModal(mode: string, category?: Category) {  
+    const dialogRef = this.dialog.open(DialogContenComponent, {  
       data: { mode, category }
     });
 

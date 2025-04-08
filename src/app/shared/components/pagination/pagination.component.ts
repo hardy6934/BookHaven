@@ -15,8 +15,7 @@ export class PaginationComponent {
 
   categoriesService = inject(CategoriesService);
   fb = inject(FormBuilder);
-
-
+ 
   paginationFilter!: PaginationFilter;
   paginationForm: FormGroup;
 

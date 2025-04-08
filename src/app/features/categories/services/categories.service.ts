@@ -13,7 +13,7 @@ export class CategoriesService {
   private apiUrl: string = "http://localhost:3000/categories";
   private filters: PaginationFilter = {
     _page: 1,
-    _per_page: 2,
+    _per_page: 10,
 
     first: 1,
     items: 0,

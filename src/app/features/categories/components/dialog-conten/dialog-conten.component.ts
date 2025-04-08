@@ -30,8 +30,8 @@ export class DialogContenComponent {
     this.title = this.getTitle(data.mode);  
 
     this.categoryForm = this.fb.group({
-      id: [data.category.id || '0', Validators.required],
-      title: [data.category.title || '', Validators.required]
+      id: [data.category?.id || '0', Validators.required],
+      title: [data.category?.title || '', Validators.required]
     }); 
   }
   
