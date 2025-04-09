@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../features/auth/services/auth-service/auth.service'; 
 import { NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BookService } from '../../features/homepage/services/book.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class NavbarComponent {
 
   authService = inject(AuthService);
+  bookService = inject(BookService);
   isLoggedIn = false; 
 
  
@@ -30,6 +32,12 @@ export class NavbarComponent {
      this.router.navigate(['/login']);
   }
   
+  // navigateTo(route: string): void{ 
+  //   this.router.navigateByUrl(route).then(() => {
+  //     this.bookService.loadBooks().subscribe()
+  //   });
+  // }
 
+  
 } 
 

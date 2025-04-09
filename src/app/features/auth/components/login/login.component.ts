@@ -1,8 +1,10 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';  
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth-service/auth.service';
+import { Auth } from '../../../../shared/models/auth.model';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,7 @@ export class LoginComponent {
   fb = inject(FormBuilder);
   authService = inject(AuthService);
 
-  constructor(){}
+  constructor() { }
 
   loginForm = this.fb.group(
     {
@@ -24,11 +26,25 @@ export class LoginComponent {
     }
   )
 
-  onSubmit(){
-    if(this.loginForm.valid){ 
-        this.authService.login().subscribe();  
-    } 
+  onSubmit() {
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginFormToAuthModelMapper()).subscribe({
+        error: (err) => { alert(`Ошибка: ${err.message}`); }
+      });
+    }
   }
+
   
+
+  loginFormToAuthModelMapper(): Auth {
+
+    const authModel: Auth = {
+      email: this.loginForm.value.email || "",
+      password: this.loginForm.value.password || ""
+    }
+    return authModel
+
+  }
+
 
 }

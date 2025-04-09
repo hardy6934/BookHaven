@@ -13,7 +13,7 @@ export class ProfileService {
   constructor() { }
  
   getProfile(): Observable<any>{
-    return this.http.get<Profile>('http://localhost:3000/profile');
+    return this.http.get<Profile[]>('http://localhost:3000/profile');
   }
    
 }

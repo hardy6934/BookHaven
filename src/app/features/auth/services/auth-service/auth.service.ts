@@ -1,41 +1,56 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';  
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { Auth } from '../../../../shared/models/auth.model';
+import { Profile } from '../../../../shared/models/profile.model'; 
+import { Md5 } from 'md5-typescript';
 
-@Injectable( {
+@Injectable({
   providedIn: 'root'
 })
-export class AuthService { 
- 
+export class AuthService {
+
+  private apiURL = "http://localhost:3000/profile";
+
   private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.hasToken());
   readonly isLoggedIn$: Observable<boolean> = this.isLoggedInSubject.asObservable();
 
   router = inject(Router);
 
-  constructor(private http: HttpClient) { 
+
+  constructor(private http: HttpClient) {
   }
 
   private hasToken(): boolean {
-    return !!localStorage.getItem('jwtToken');  // Проверяем, есть ли токен
+    return !!localStorage.getItem('jwtToken');
   }
 
-  login(): Observable<any> {
-    return this.http.post('https://jsonplaceholder.typicode.com/posts', {
-      login: 'login',
-      password: 'password' 
-    }).pipe(  
-      tap(response => {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyIiwibmFtZSI6IkFsZXgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTYyMzkwMjIsImV4cCI6MTc0MzQ0NjQwMH0.zDU0x9jTYqTtUzmoapFA8AKKOsNJOAJS1rbc9flt4ig';
-        localStorage.setItem('jwtToken', token); 
+  login(authModel: Auth): Observable<Profile> {  
+    return this.http.get<Profile>(`${this.apiURL}`)
+      .pipe(
+        map(response => { 
+          if (response.email !== authModel.email) {
+            throw new Error('Пользователь не найден');
+          }
+          if (response.password !== Md5.init(authModel.password)) {
+            throw new Error('Неверный пароль');
+          }
+          return response;
+        }),
+        tap(response => { 
+          console.log(response)
+          const token = response.token;
+          localStorage.setItem('jwtToken', token);
 
-        this.isLoggedInSubject.next(true);  
+          this.isLoggedInSubject.next(true);
 
-        this.router.navigate(['/']);
-
-      })
-    );
+          this.router.navigate(['/']); 
+        })
+      );
   }
+
+ 
 
   logout(): void {
     localStorage.removeItem('jwtToken');

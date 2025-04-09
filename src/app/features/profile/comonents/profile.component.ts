@@ -1,8 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ProfileService } from '../services/profile.service';
 import { Profile } from '../../../shared/models/profile.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ActivatedRoute} from '@angular/router'; 
 
 @Component({
   selector: 'app-profile',
@@ -21,7 +19,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileData = this.activatedRoute.snapshot.data['profileData'];
-    console.log(this.profileData); // Данные профиля загружены
   }
 
 }
