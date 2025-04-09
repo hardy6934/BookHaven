@@ -39,7 +39,7 @@ export class BookService {
 
   private paginationFiltersSubject: BehaviorSubject<PaginationFilter> = new BehaviorSubject<PaginationFilter>(this.paginationFilters);
   readonly paginationFilters$: Observable<PaginationFilter> = this.paginationFiltersSubject.asObservable();
- 
+
   private http = inject(HttpClient)
 
   constructor() {
@@ -55,18 +55,15 @@ export class BookService {
       .set("_page", this.paginationFiltersSubject.value._page)
       .set("_per_page", this.paginationFiltersSubject.value._per_page);
 
-      if(this.booksFiltersSubject.value.isFavorite)
-      { 
-        params = params.set("isFavorite", true); 
-      } 
-      if(this.booksFiltersSubject.value.isNotFavorite)
-      { 
-        params = params.set("isFavorite", false); 
-      }
-      if(this.booksFiltersSubject.value.categoryId > 0)
-      { 
-        params = params.set("categoryId", this.booksFiltersSubject.value.categoryId); 
-      }
+    if (this.booksFiltersSubject.value.isFavorite) {
+      params = params.set("isFavorite", true);
+    }
+    if (this.booksFiltersSubject.value.isNotFavorite) {
+      params = params.set("isFavorite", false);
+    }
+    if (this.booksFiltersSubject.value.categoryId > 0) {
+      params = params.set("categoryId", this.booksFiltersSubject.value.categoryId);
+    }
 
     return this.http.get<GetListEl<Book>>(this.apiUrl, { params }).pipe(
       tap((res) => {
@@ -89,24 +86,16 @@ export class BookService {
 
   }
 
-  updateBook(book: Book): Observable<any> {
+  updateBook(book: Book): Observable<Book> {
     return this.http.put<Book>(`${this.apiUrl}/${book.id}`, book);
   }
 
-
-
-
-  createBook: Book = {
-    id: "123",
-    title: "123",
-    author: "123",
-    categoryId: "123",
-    description: "123",
-    isFavorite: false
+  addNewBook(book: Book): Observable<Book> {
+    return this.http.post<Book>(`${this.apiUrl}`, book)
   }
-  addNewBook(): Observable<any> {
-    console.log("ikownenngwr");
-    return this.http.post<Book>(`${this.apiUrl}`, this.createBook).pipe(tap(res => console.log(res)));
+
+  removeBook(book: Book): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${book.id}`);
   }
 
 }

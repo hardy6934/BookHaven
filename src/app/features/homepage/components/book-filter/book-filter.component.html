@@ -1,16 +1,17 @@
 <div class="pagination-container">
 
-    <button mat-button (click)="previousPage()" [disabled]="paginationFilter._page === 1">
-        &lt;
-    </button>
+    <div class="pages">
+        <button mat-button (click)="previousPage()" [disabled]="paginationFilter._page === 1">
+            &lt;
+        </button>
 
-    <span class="page-info">Страница {{paginationFilter._page}} из {{paginationFilter.pages}}</span>
+        <span class="page-info">Страница {{paginationFilter._page}} из {{paginationFilter.pages}}</span>
 
-    <button mat-button (click)="nextPage()" [disabled]="paginationFilter._page === paginationFilter.pages">
-        &gt;
-    </button>
-
-    <div [formGroup]="paginationForm" class="page-size-selector">
+        <button mat-button (click)="nextPage()" [disabled]="paginationFilter._page === paginationFilter.pages">
+            &gt;
+        </button>
+    </div>
+    <div [formGroup]="paginationForm" class="pagination-form">
         <label>Элементов на странице:</label>
         <select formControlName="_per_page">
             <option *ngFor="let size of pageSizeOptions" [value]="size">

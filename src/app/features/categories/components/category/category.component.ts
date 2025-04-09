@@ -61,7 +61,7 @@ export class CategoryComponent {
 
     const categoryModel: Category = {
       id: createUpdateCategoryForm.value.id || "0",
-      title: createUpdateCategoryForm.value.title || "title title title"
+      title: createUpdateCategoryForm.value.title || "title"
     }
 
     return categoryModel;

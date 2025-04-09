@@ -1,12 +1,12 @@
 
 <div  *ngIf="!isLoading;else loading" >
-    <app-primary-button buttonText="Add New" (click)="addNewBook()"></app-primary-button> 
+    <app-primary-button buttonText="Add New"  (click)="openModal('add')"></app-primary-button> 
 
     <app-book-filter></app-book-filter>
     
     <div class="books">
         <div *ngFor="let book of books$ | async">
-            <app-book [book]="book"></app-book>
+            <app-book [book]="book" [categories]="categories"></app-book>
         </div>
     </div> 
 </div> 

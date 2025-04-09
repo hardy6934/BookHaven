@@ -5,16 +5,22 @@ import { BookService } from '../../services/book.service';
 import { NgIf } from '@angular/common';
 import { PaginationFilter } from '../../../../shared/models/pagination-filter.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogBookContentComponent } from '../dialog-book-content/dialog-book-content.component';
+import { Category } from '../../../../shared/models/category.model';
+import { CategoryIdToTitle } from '../../pipes/categoryId-to-title';
 
 @Component({
   selector: 'app-book',
-  imports: [PrimaryButtonComponent, NgIf],
+  imports: [PrimaryButtonComponent, NgIf, CategoryIdToTitle],
   templateUrl: './book.component.html',
   styleUrl: './book.component.scss'
 })
 export class BookComponent {
 
   @Input() book!: Book
+  @Input() categories!: Category[]
+  dialog = inject(MatDialog);
 
   bookService = inject(BookService);
 
@@ -29,7 +35,7 @@ export class BookComponent {
     this.bookService.updateBook({ ...this.book, isFavorite: !this.book.isFavorite })
       .subscribe({
         next: (res) => {
-          //res - updatd boook  
+          //res - updated boook  
           this.bookService.loadBooks(this.paginationFilters).subscribe()
         },
         error: (err) => {
@@ -37,5 +43,39 @@ export class BookComponent {
         }
       });
   }
+
+
+  openModal(mode: string) {
+      const dialogRef = this.dialog.open(DialogBookContentComponent, {
+        data: { mode, book: this.book }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          switch (mode) {
+            case 'edit':
+              this.bookService.updateBook(result).subscribe({
+                next: () => {
+                  alert('Категория обновлена');
+                  this.bookService.loadBooks().subscribe();
+                },
+                error: (err) => alert(`Ошибка: ${err.message}`)
+              });
+              break;
+            case 'delete':
+              if (result === true) {
+                this.bookService.removeBook(this.book).subscribe({
+                  next: () => {
+                    alert('Категория удалена');
+                    this.bookService.loadBooks().subscribe()
+                  },
+                  error: (err) => alert(`Ошибка: ${err.message}`)
+                });
+              }
+              break;
+          }
+        }
+      });
+    }
 
 }

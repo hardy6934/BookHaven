@@ -1,0 +1,84 @@
+<div *ngIf="mode !== 'delete';else delete">
+    <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" class="create-category-modal-form">
+        <mat-dialog-content>
+
+            <mat-label>{{head}}</mat-label>
+
+            <div *ngIf="mode === 'add';else edit">
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="id" value="bookForm.id" type="text" placeholder="Введите ваш ID">
+                </mat-form-field>
+            </div>
+            <ng-template #edit>
+                <mat-form-field>
+                    <mat-label>ID</mat-label>
+                    <input matInput formControlName="id" value="bookForm.id" type="text" placeholder="Введите ваш ID"
+                        readonly>
+                </mat-form-field>
+            </ng-template>
+
+            <mat-form-field>
+                <mat-label>Название</mat-label>
+                <input matInput formControlName="title" type="text" placeholder="Введите название">
+                <span class="validation-error" *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched">
+                    Поле название обязательно для заполнения.
+                </span>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Автор</mat-label>
+                <input matInput formControlName="author" type="text" placeholder="Введите автора">
+                <span class="validation-error"
+                    *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched">
+                    Поле Автор обязательно для заполнения.
+                </span>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Категория</mat-label>
+                <mat-select formControlName="categoryId">
+                  <mat-option *ngFor="let category of categories" [value]="category.id">
+                    {{ category.title }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Описание</mat-label>
+                <input matInput formControlName="description" type="text" placeholder="Введите описание">
+                <span class="validation-error"
+                    *ngIf="bookForm.get('description')?.invalid && bookForm.get('description')?.touched">
+                    Поле Описание обязательно для заполнения.
+                </span>
+            </mat-form-field>
+
+            <div>
+                <mat-label>Пометить как любимую?</mat-label>
+                <div>
+                    <mat-slide-toggle formControlName="isFavorite"></mat-slide-toggle>
+                </div>
+
+            </div>
+
+
+        </mat-dialog-content>
+        <mat-dialog-actions>
+            <button mat-button mat-dialog-close>Отмена</button>
+            <button mat-button mat-dialog-close type="submit">Сохранить</button>
+        </mat-dialog-actions>
+    </form>
+</div>
+
+<ng-template #delete class="delete-form">
+    <mat-dialog-content>
+
+        <mat-label>{{head}}</mat-label>
+        <strong>{{ bookForm.get('title')?.value }}</strong>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button mat-dialog-close>Отмена</button>
+        <button mat-button mat-dialog-close (click)="onDelete()">Удалить</button>
+    </mat-dialog-actions>
+</ng-template>
