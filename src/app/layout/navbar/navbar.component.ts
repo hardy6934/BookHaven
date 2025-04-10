@@ -18,6 +18,7 @@ export class NavbarComponent {
   bookService = inject(BookService);
   isLoggedIn = false; 
 
+  email: string;
  
   constructor(private router: Router) {
     this.isLoggedIn = this.authService.isAuthenticated();
@@ -25,6 +26,8 @@ export class NavbarComponent {
        this.authService.isLoggedIn$.pipe(takeUntilDestroyed()).subscribe(status => {
          this.isLoggedIn = status;
        });
+
+       this.email = localStorage.getItem('email') || "";
   } 
    
   logout(): void {  

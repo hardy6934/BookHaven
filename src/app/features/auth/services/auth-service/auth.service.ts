@@ -41,7 +41,9 @@ export class AuthService {
         tap(response => { 
           console.log(response)
           const token = response.token;
+          const email = response.email;
           localStorage.setItem('jwtToken', token);
+          localStorage.setItem('email', email);
 
           this.isLoggedInSubject.next(true);
 
@@ -54,6 +56,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('email');
     this.isLoggedInSubject.next(false);
 
     this.router.navigate(['/login']);
