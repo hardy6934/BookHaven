@@ -1,11 +1,10 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PasswordMatchValidator } from '../../validators/password-match.validator';
 import { Register } from '../../../../shared/models/register.model';
-import { Md5 } from 'md5-typescript'; 
-import { Observable } from 'rxjs';
+import { Md5 } from 'md5-typescript';  
 import { AuthService } from '../../services/auth-service/auth.service';
 
 
@@ -18,6 +17,7 @@ import { AuthService } from '../../services/auth-service/auth.service';
 export class RegistrationComponent {
   fb = inject(FormBuilder);
   authService = inject(AuthService);
+  router = inject(Router);
 
   registrationForm = this.fb.group(
     {
@@ -32,7 +32,19 @@ export class RegistrationComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      console.log("Form data_____", this.registrationForm.value)
+      const regModel = this.registerFormToRegisterModelMapper();
+      this.authService.register(regModel)
+      .subscribe({next: (response)=> 
+      {
+        console.log(response);
+        console.log(this.registrationForm.value);
+        if(response.email === regModel.email && response.password === regModel.password)
+        {
+          alert("Успешно зарегестрирован");
+          this.router.navigate(['/login']);
+        }
+      }
+      });
     }
   }
 
@@ -44,8 +56,5 @@ export class RegistrationComponent {
     }
     return registerModel 
   }
-
-  register(): void {
-    this.authService.register(this.registerFormToRegisterModelMapper());
-  }
+ 
 }

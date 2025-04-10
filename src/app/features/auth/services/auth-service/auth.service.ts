@@ -31,10 +31,10 @@ export class AuthService {
     return this.http.get<Profile[]>(`${this.apiURL}`)
       .pipe(
         map(response => {  
-          if (response.find((el)=> el.email !== authModel.email)) {
+          if (!response.find((el)=> el.email === authModel.email)) {
             throw new Error('Пользователь не найден');
           }
-          if (response.find((el)=> el.email === authModel.email && el.password !== Md5.init(authModel.password) ) ) {
+          if (!response.find((el)=> el.email === authModel.email && el.password === Md5.init(authModel.password) ) ) {
             throw new Error('Неверный пароль');
           } 
           return response;
@@ -60,16 +60,23 @@ export class AuthService {
 
 
   register(register: Register): Observable<Profile> {  
-    const auth: Auth = {
+    const profile: Profile = { 
       email: register.email,
-      password: register.password
+      password: register.password,
+      name: "empty",
+      age: 25,
+      gender: "empty",
+      position: "empty",
+      token: register.token
     }
-    return this.http.post<Profile>(`${this.apiURL}`, auth);
+    return this.http.post<Profile>(`${this.apiURL}`, profile); 
+    
   }
  
 
   logout(): void {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('email');
     this.isLoggedInSubject.next(false);
 
     this.router.navigate(['/login']);
