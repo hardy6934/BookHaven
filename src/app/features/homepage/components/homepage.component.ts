@@ -14,11 +14,12 @@ import { DialogBookContentComponent } from './dialog-book-content/dialog-book-co
 import { pipe } from 'rxjs';
 import { CategoriesService } from '../../categories/services/categories.service';
 import { Category } from '../../../shared/models/category.model';
+import { BooksSort } from '../pipes/books-sort';
 
 
 @Component({
   selector: 'app-homepage',
-  imports: [AsyncPipe, NgFor, NgIf, BookComponent, PrimaryButtonComponent, BookFilterComponent],
+  imports: [AsyncPipe, NgFor, NgIf, BookComponent, PrimaryButtonComponent, BookFilterComponent, BooksSort],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
@@ -31,6 +32,7 @@ export class HomepageComponent {
   books$ = this.bookService.books$;
 
   isLoading: boolean = true;
+  sortType: string = "";
 
   paginationFilters!: PaginationFilter;
   booksFilters!: BookFilter;
@@ -73,6 +75,10 @@ export class HomepageComponent {
         }
       }
     });
+  }
+
+  updateSortType(type: string) {
+    this.sortType = type;
   }
 
 }

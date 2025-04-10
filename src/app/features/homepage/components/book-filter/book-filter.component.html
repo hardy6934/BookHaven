@@ -23,5 +23,13 @@
         <label>Только НЕ избранное <input type="checkbox" formControlName="isNotFavorite"></label>
 
     </div>
+    <div>
+        <label for="sortSelect">Выберите сортировку:</label>
+        <select id="sortSelect" (change)="onSortChange($event)">
+          <option value="">Без сортировки</option>
+          <option value="author">По автору</option>
+          <option value="title">По названию</option>
+        </select>
+    </div>
 
 </div>

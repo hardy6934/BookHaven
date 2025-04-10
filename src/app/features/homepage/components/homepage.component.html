@@ -1,13 +1,13 @@
+<div *ngIf="!isLoading;else loading">
+    <div class="add-book-button">
+        <app-primary-button buttonText="Add New" (click)="openModal('add')"></app-primary-button>
+    </div>
+    <app-book-filter (sortTypeChange)="updateSortType($event)"></app-book-filter>
 
-<div  *ngIf="!isLoading;else loading" >
-    <app-primary-button buttonText="Add New"  (click)="openModal('add')"></app-primary-button> 
-
-    <app-book-filter></app-book-filter>
-    
     <div class="books">
-        <div *ngFor="let book of books$ | async">
+        <div *ngFor="let book of books$ | async | booksSort : sortType ">
             <app-book [book]="book" [categories]="categories"></app-book>
         </div>
-    </div> 
-</div> 
+    </div>
+</div>
 <ng-template #loading>loading...</ng-template>

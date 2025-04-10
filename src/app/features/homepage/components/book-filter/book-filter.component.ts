@@ -1,12 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookService } from '../../services/book.service';
 import { PaginationFilter } from '../../../../shared/models/pagination-filter.model';
 import { NgFor } from '@angular/common';
-import { BookFilter } from '../../../../shared/models/book-filter.model';
-import { ActivatedRoute } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { BookFilter } from '../../../../shared/models/book-filter.model'; 
 
 @Component({
   selector: 'app-book-filter',
@@ -19,12 +17,13 @@ export class BookFilterComponent {
   bookService = inject(BookService);
   fb = inject(FormBuilder);
 
+  @Output() sortTypeChange = new EventEmitter<string>();
+
   paginationFilter!: PaginationFilter;
   booksFilters!: BookFilter;
   paginationForm: FormGroup;
 
-  pageSizeOptions = [3, 5, 10, 15, 20, 30, 50];
-  isFavoriteOptions = [null, true, false];
+  pageSizeOptions = [3, 5, 10, 15, 20, 30, 50]; 
 
   constructor() {
     this.bookService.paginationFilters$.pipe(takeUntilDestroyed()).
@@ -87,6 +86,11 @@ export class BookFilterComponent {
       this.paginationFilter._page--;
       this.bookService.loadBooks(this.paginationFilter).subscribe();
     }
+  }
+
+  onSortChange(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    this.sortTypeChange.emit(value);
   }
 
 

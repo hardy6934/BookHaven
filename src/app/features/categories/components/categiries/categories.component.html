@@ -1,7 +1,8 @@
 <div *ngIf="!isLoading;else loading">
-    <app-primary-button buttonText="Add New" (click)="openModal('add')"></app-primary-button>
-
-    <app-pagination  ></app-pagination>
+    <div class="add-book-button">
+        <app-primary-button buttonText="Add New" (click)="openModal('add')"></app-primary-button>
+    </div>
+    <app-pagination></app-pagination>
 
     <div class="categories">
         <div *ngFor="let category of categories$ | async">
