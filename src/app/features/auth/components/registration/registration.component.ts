@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { PasswordMatchValidator } from '../../validators/password-match.validator';
 import { Register } from '../../../../shared/models/register.model';
 import { Md5 } from 'md5-typescript'; 
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth-service/auth.service';
 
 
 @Component({
@@ -15,6 +17,7 @@ import { Md5 } from 'md5-typescript';
 })
 export class RegistrationComponent {
   fb = inject(FormBuilder);
+  authService = inject(AuthService);
 
   registrationForm = this.fb.group(
     {
@@ -33,14 +36,16 @@ export class RegistrationComponent {
     }
   }
 
-  registerFormToRegisterModelMapper(): Register {
-
-    
+  registerFormToRegisterModelMapper(): Register { 
     const registerModel: Register = {
       email: this.registrationForm.value.email!,
       password: Md5.init(this.registrationForm.value.password),
       token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyIiwibmFtZSI6IkFsZXgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTYyMzkwMjIsImV4cCI6MTc0MzQ0NjQwMH0.zDU0x9jTYqTtUzmoapFA8AKKOsNJOAJS1rbc9flt4ig",
     }
     return registerModel 
+  }
+
+  register(): void {
+    this.authService.register(this.registerFormToRegisterModelMapper());
   }
 }

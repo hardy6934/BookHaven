@@ -5,6 +5,7 @@ import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { Auth } from '../../../../shared/models/auth.model';
 import { Profile } from '../../../../shared/models/profile.model'; 
 import { Md5 } from 'md5-typescript';
+import { Register } from '../../../../shared/models/register.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,14 @@ export class AuthService {
       );
   }
 
+
+  register(register: Register): Observable<Profile> {  
+    const auth: Auth = {
+      email: register.email,
+      password: register.password
+    }
+    return this.http.post<Profile>(`${this.apiURL}`, auth);
+  }
  
 
   logout(): void {
