@@ -5,6 +5,8 @@ import { AuthService } from '../../features/auth/services/auth-service/auth.serv
 import { NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BookService } from '../../features/homepage/services/book.service';
+import { ProfileService } from '../../features/profile/services/profile.service';
+import { pipe } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -16,8 +18,10 @@ export class NavbarComponent {
 
   authService = inject(AuthService);
   bookService = inject(BookService);
+  profileService = inject(ProfileService)
   isLoggedIn = false; 
 
+  userName: string ="";
  
   constructor(private router: Router) {
     this.isLoggedIn = this.authService.isAuthenticated();
@@ -25,6 +29,8 @@ export class NavbarComponent {
        this.authService.isLoggedIn$.pipe(takeUntilDestroyed()).subscribe(status => {
          this.isLoggedIn = status;
        });
+
+       this.profileService.getProfile().subscribe({next: (profile)=> this.userName = profile.email})
   } 
    
   logout(): void {  

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Profile } from '../../../shared/models/profile.model';
 
 @Injectable({
@@ -13,7 +13,13 @@ export class ProfileService {
   constructor() { }
  
   getProfile(): Observable<any>{
-    return this.http.get<Profile[]>('http://localhost:3000/profile');
+    const email = localStorage.getItem('email');
+    
+    return this.http.get<Profile[]>('http://localhost:3000/profile').pipe(
+      map((profiles: Profile[]) =>
+        profiles.find((profile) => profile.email === email)
+      )
+    )
   }
    
 }

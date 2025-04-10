@@ -26,26 +26,33 @@ export class AuthService {
     return !!localStorage.getItem('jwtToken');
   }
 
-  login(authModel: Auth): Observable<Profile> {  
-    return this.http.get<Profile>(`${this.apiURL}`)
+  login(authModel: Auth): Observable<Profile[]> {  
+    return this.http.get<Profile[]>(`${this.apiURL}`)
       .pipe(
-        map(response => { 
-          if (response.email !== authModel.email) {
+        map(response => {  
+          if (response.find((el)=> el.email !== authModel.email)) {
             throw new Error('Пользователь не найден');
           }
-          if (response.password !== Md5.init(authModel.password)) {
+          if (response.find((el)=> el.email === authModel.email && el.password !== Md5.init(authModel.password) ) ) {
             throw new Error('Неверный пароль');
-          }
+          } 
           return response;
         }),
-        tap(response => { 
-          console.log(response)
-          const token = response.token;
-          localStorage.setItem('jwtToken', token);
-
-          this.isLoggedInSubject.next(true);
-
-          this.router.navigate(['/']); 
+        tap(response => {  
+          let curUser = response.find((el)=> el.email === authModel.email)
+          if(curUser)
+          {
+            console.log(curUser)
+            const token = curUser.token;
+            const email = curUser.email;
+            localStorage.setItem('jwtToken', token);
+            localStorage.setItem('email', email);
+  
+            this.isLoggedInSubject.next(true);
+  
+            this.router.navigate(['/']); 
+          }
+          
         })
       );
   }
