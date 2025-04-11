@@ -11,15 +11,16 @@ import { ActivatedRoute } from '@angular/router';
 import { Book } from '../../../shared/models/book.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBookContentComponent } from './dialog-book-content/dialog-book-content.component';
-import { pipe } from 'rxjs';
 import { CategoriesService } from '../../categories/services/categories.service';
-import { Category } from '../../../shared/models/category.model';
+import { Category } from '../../../shared/models/category.model'; 
 import { BooksSort } from '../pipes/books-sort';
+import { SearchBooks } from '../pipes/search-books';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-homepage',
-  imports: [AsyncPipe, NgFor, NgIf, BookComponent, PrimaryButtonComponent, BookFilterComponent, BooksSort],
+  imports: [AsyncPipe, NgFor, NgIf, BookComponent, PrimaryButtonComponent, BookFilterComponent, BooksSort, SearchBooks, FormsModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'
 })
@@ -32,7 +33,8 @@ export class HomepageComponent {
   books$ = this.bookService.books$;
 
   isLoading: boolean = true;
-  sortType: string = "";
+  sortType: string = ""; 
+  search: string = ""; 
 
   paginationFilters!: PaginationFilter;
   booksFilters!: BookFilter;

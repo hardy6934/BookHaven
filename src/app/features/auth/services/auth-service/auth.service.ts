@@ -47,7 +47,7 @@ export class AuthService {
 
           this.isLoggedInSubject.next(true);
 
-          this.router.navigate(['/']); 
+          this.router.navigate(['/home']); 
         })
       );
   }

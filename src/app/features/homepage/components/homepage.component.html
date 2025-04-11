@@ -1,13 +1,20 @@
 <div *ngIf="!isLoading;else loading">
     <div class="add-book-button">
         <app-primary-button buttonText="Add New" (click)="openModal('add')"></app-primary-button>
+    </div> 
+
+    <div class="search-block">
+        <label> Search:
+            <input class="search-input" type="search" [(ngModel)] = "search">
+        </label> 
     </div>
+
     <app-book-filter (sortTypeChange)="updateSortType($event)"></app-book-filter>
 
     <div class="books">
-        <div *ngFor="let book of books$ | async | booksSort : sortType ">
+        <div *ngFor="let book of books$ | async | booksSort : sortType | searchBooks: search ">
             <app-book [book]="book" [categories]="categories"></app-book>
         </div>
-    </div>
+    </div> 
 </div>
 <ng-template #loading>loading...</ng-template>
