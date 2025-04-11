@@ -1,0 +1,13 @@
+<div *ngIf="!isLoading;else loading">
+    <div class="add-book-button">
+        <app-primary-button buttonText="Add New" (click)="openModal('add')"></app-primary-button>
+    </div>
+    <app-pagination></app-pagination>
+
+    <div class="categories">
+        <div *ngFor="let category of categories$ | async">
+            <app-category [category]="category"></app-category>
+        </div>
+    </div>
+</div>
+<ng-template #loading>loading...</ng-template>

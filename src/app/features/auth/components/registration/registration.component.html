@@ -1,0 +1,46 @@
+
+  <div class = "registration">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form"> 
+ 
+          <div class="registration-form-greeting">
+            <h2>Registration</h2>
+          </div>  
+    
+          <div class="form-control">
+            <div class="input-container">
+               <img src="/mailicon.png" alt="icon" class="input-icon"> 
+              <input formControlName="email" type="email" autocomplete="username" placeholder="Email"/>
+            </div> 
+            <span class="validation-error" *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+              Incorrect email.
+            </span>  
+          </div>
+  
+          <div class="form-control">
+            <div class="input-container">
+               <img src="/lockicon.png" alt="icon" class="input-icon"> 
+               <input  formControlName="password" type="password" autocomplete="new-password" placeholder="Пароль"/>
+            </div> 
+            <span class="validation-error" *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+              The password must be at least 6 characters long.
+            </span>  
+          </div> 
+  
+          <div class="form-control">
+            <div class="input-container">
+               <img src="/lockicon.png" alt="icon" class="input-icon">
+               <input  formControlName="passwordConfirmation" type="password" autocomplete="new-password" placeholder="Повторите пароль"/>
+            </div> 
+            <span class="validation-error" *ngIf="registrationForm.errors?.['passwordsMismatch'] && registrationForm.get('passwordConfirmation')?.touched">
+              The password confirmation doesn't match password
+            </span>  
+          </div>  
+
+          <input class="registration-form-submit" type = "submit" value="Sign Up"/>
+    
+          <div>
+            <p>Alrady have an account?<a class="link" routerLink="/login">Sign In</a></p>
+          </div> 
+      
+    </form>
+  </div>

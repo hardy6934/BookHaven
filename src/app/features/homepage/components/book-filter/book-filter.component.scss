@@ -1,0 +1,26 @@
+.pagination-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column; 
+    gap: 1rem;
+  } 
+
+  .pages{
+    display: flex; 
+    justify-content: center;  
+    flex-direction: row; 
+    gap: 0.5rem;
+  }
+
+  .pages button{
+    border: 1px solid black;
+    padding: 0 0.4rem;
+  }
+
+  .pagination-form{
+    display: flex; 
+    justify-content: center;  
+    flex-direction: row; 
+    gap: 0.5rem;
+  }

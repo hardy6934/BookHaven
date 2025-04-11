@@ -1,0 +1,10 @@
+.categories{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;  
+    margin: 10px 0px;
+}
+
+.add-book-button{
+    margin-top: 10px;
+}

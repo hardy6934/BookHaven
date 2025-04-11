@@ -1,0 +1,35 @@
+<div class="pagination-container">
+
+    <div class="pages">
+        <button mat-button (click)="previousPage()" [disabled]="paginationFilter._page === 1">
+            &lt;
+        </button>
+
+        <span class="page-info">Страница {{paginationFilter._page}} из {{paginationFilter.pages}}</span>
+
+        <button mat-button (click)="nextPage()" [disabled]="paginationFilter._page === paginationFilter.pages">
+            &gt;
+        </button>
+    </div>
+    <div [formGroup]="paginationForm" class="pagination-form">
+        <label>Элементов на странице:</label>
+        <select formControlName="_per_page">
+            <option *ngFor="let size of pageSizeOptions" [value]="size">
+                {{ size }}
+            </option>
+        </select>
+
+        <label>Только избранное <input type="checkbox" formControlName="isFavorite"></label>
+        <label>Только НЕ избранное <input type="checkbox" formControlName="isNotFavorite"></label>
+
+    </div>
+    <div>
+        <label for="sortSelect">Выберите сортировку:</label>
+        <select id="sortSelect" (change)="onSortChange($event)">
+          <option value="">Без сортировки</option>
+          <option value="author">По автору</option>
+          <option value="title">По названию</option>
+        </select>
+    </div>
+
+</div>

@@ -1,0 +1,47 @@
+
+  <div class = "authentication">
+    <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form"> 
+ 
+      <div class="login-form-greeting">
+        <div>
+          <h2>Access Account</h2>
+        </div> 
+
+        <div>
+          <label>Welcome back! Please log in to continue.</label> 
+        </div> 
+      </div>
+          
+    
+          <div class="form-control">
+            <div class="input-container">
+               <img src="/mailicon.png" alt="icon" class="input-icon"> 
+               <input formControlName="email" type="email" autocomplete="username" placeholder="Введите ваш email"/>
+            </div> 
+            <span class="validation-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              Incorrect email.
+            </span>  
+          </div>
+  
+          <div class="form-control">
+            <div class="input-container">
+              <img src="/lockicon.png" alt="icon" class="input-icon"> 
+               <input  formControlName="password" type="password" autocomplete="current-password" placeholder="Введите ваш пароль"/>
+            </div> 
+            <span class="validation-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              The password must be at least 6 characters long.
+            </span>  
+          </div> 
+
+          <div class="authentication-forget-password link"> 
+            <a>Forgot your password?</a>
+          </div>
+           
+          <input class="authentication-form-submit" type = "submit" value="Log In"/>
+    
+          <div>
+            <p>Need to create an account?<a class="link" routerLink="/registration">Sign Up</a></p>
+          </div> 
+      
+    </form>
+  </div>

@@ -1,0 +1,73 @@
+ @use "variables" as var;
+ @use "mixins" as mix;
+
+
+.navbar{
+    display: flex;
+    justify-content: space-between; 
+    flex-direction: row; 
+    padding: 0px 10px;  
+    width: var.$width-container;
+}
+
+.navbar-routes {
+  @include mix.center-Y;
+}
+.navbar-routes ul {
+    display: flex;
+    list-style-type: none; 
+    padding: 0;
+    margin: 0;
+} 
+  .navbar-routes ul li {
+    @include mix.center-XY;
+    margin-right: 20px;  
+    cursor: pointer;
+    color: #333;
+    height: 100%;
+  } 
+  .navbar-routes ul li:hover {
+    color: var.$primary-color;  
+    border-bottom: 3px solid var.$primary-color;
+    border-radius: 2px;
+  } 
+
+  .navbar-auth {    
+    @include mix.center-Y;
+    flex-direction: row; 
+
+    .profile{
+      @include mix.center-Y;
+      flex-direction: row;  
+      cursor: pointer;
+    }
+
+  } 
+  .navbar-auth app-primary-button {
+    margin-left: 10px;   
+  }
+
+  .navbar-routes-pic{    
+    height: 2rem; 
+    cursor: pointer;
+  }
+    .navbar-routes-pic.user{    
+      padding: 0px 5px;
+      height: 1.6rem; 
+    }
+    .userName{
+      margin-right: 10px;
+    }
+    .navbar-routes-pic.logout{     
+      height: 1.6rem; 
+    }
+
+  .navbar-routes-title{
+    font-weight: bold;
+    margin: 0px 15px 0px 5px; 
+    font-size: 1.3rem; 
+    cursor: pointer;
+  }
+  .navbar-routes-logout{
+    color: #CB5454; 
+  }
